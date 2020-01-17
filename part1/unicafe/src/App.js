@@ -1,35 +1,33 @@
 import React, { useState } from "react";
+import './index.css';
+import './App.css'
 
-const Statistics = ({ good, bad, neutral }) => {
-  if (good || bad || neutral) {
-    return (
-      <div>
-        <p>Good: {good}</p>
-        <p>Bad: {bad}</p>
-        <p>Neutral: {neutral}</p>
-        <p>All: {totalVotes(good, bad, neutral)}</p>
-        <p>Average: {calcAverage(good, bad)} </p>
-        <p>Postivie: {positiveFeedback(good, bad, neutral)} % </p>
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      <h1>
-        <p>No Statistics Given</p>
-      </h1>
-    </div>
-  );
+const tableStyle = {
+  tableLayout: 'fixed',
+  width: '100%'
 };
+
+const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>;
+
+const Stats = ({ value, text }) => (
+  <table style={tableStyle}>
+    <tbody>
+      <tr>
+        <td>{text}: </td>
+        <td>{value}</td>
+      </tr>
+    </tbody>
+  </table>
+);
 
 const calcAverage = (good, bad) => good - bad;
 
 const totalVotes = (good, bad, neutral) => good + bad + neutral;
 
-const positiveFeedback = (good, bad, neutral) =>
-  Math.round((good / totalVotes(good, bad, neutral)) * 100);
-
+const positiveFeedback = (good, bad, neutral) => {
+  const percentage = Math.round((good / totalVotes(good, bad, neutral)) * 100);
+  return <p>{percentage}%</p>;
+};
 //const all = () => good + bad
 
 const App = () => {
@@ -41,10 +39,15 @@ const App = () => {
   return (
     <div>
       <h1>Give feedback</h1>
-      <button onClick={() => setGood(good + 1)}>Good</button>
-      <button onClick={() => setBad(bad + 1)}>Bad</button>
-      <button onClick={() => setNeutral(neutral + 1)}>Neutral</button>
-      <Statistics good={good} bad={bad} neutral={neutral} />
+      <Button onClick={() => setGood(good + 1)} text={"Good"}></Button>
+      <Button onClick={() => setNeutral(neutral + 1)} text={"Netural"}></Button>
+      <Button onClick={() => setBad(bad + 1)} text={"Bad"}></Button>
+      <Stats text={"Good"} value={good} />
+      <Stats text={"Neutral"} value={neutral} />
+      <Stats text={"Bad"} value={bad} />
+      <Stats text={"Total"} value={totalVotes(good, bad, neutral)} />
+      <Stats text={"Average"} value={calcAverage(good, bad)} />
+      <Stats text={"Positive"} value={positiveFeedback(good, bad, neutral)} />
     </div>
   );
 };
