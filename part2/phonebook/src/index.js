@@ -1,50 +1,39 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
+import PersonForm from "./components/PersonForm";
+import Filter from "./components/Filter";
+import Persons from './components/Persons'
 
 const App = () => {
-    
-    const [persons, setPersons] = useState([{ name: 'Arto Hellas' }])
-    const [newName, setNewName] = useState('');
-
-    const newPerson = (e) => {
-        e.preventDefault()
-        console.log(e.target.value)
-        checkUser ? console.log('already exists') : 
-        setPersons(persons.concat({ name: newName }))
-        
-    }
+  const [persons, setPersons] = useState([
+    { name: "Arto Hellas", number: "040-123456" },
+    { name: "Ada Lovelace", number: "39-44-5323523" },
+    { name: "Dan Abramov", number: "12-43-234345" },
+    { name: "Mary Poppendieck", number: "39-23-6423122" }
+  ]);
+  const [newName, setNewName] = useState("");
+  const [newNumber, setNumber] = useState("");
+  const [newFilter, setFilter] = useState("");
 
 
-    const checkUser = persons.filter(person => person.name)
-
-    const handleChangePerson = (e) => {
-        setNewName(e.target.value) 
-    }
-
-    const showUsers = () => persons.map(person => <li key={person.name}>{person.name}</li>)
-
-    return (<div>
-        <h2>
-            PhoneBook
-        </h2>
-        <form onSubmit={newPerson}>
-            <div>
-                name: <input onChange={handleChangePerson}/>
-            </div>
-            <div>
-                <button type="submit">add</button>
-            </div>
-            <div>debug: {newName}
-            </div>
-            
-        </form>
-        <h2>Numbers</h2>
-        <ul>
-        {showUsers()}
-        </ul>
+  return (
+    <div>
+      <h2>PhoneBook</h2>
+      <Filter persons={persons} filter={newFilter} setFilter={setFilter} />
+      <h2>Add a new person:</h2>
+      <PersonForm
+        persons={persons}
+        setNewName={setNewName}
+        newName={newName}
+        setNumber={setNumber}
+        newNumber={newNumber}
+        setPersons={setPersons}
+      />
+      <h2>Numbers</h2>
+      <Persons persons={persons} newFilter={newFilter} />
     </div>
-    )
-}
+  );
+};
 export default App;
 
 ReactDOM.render(<App />, document.getElementById("root"));
