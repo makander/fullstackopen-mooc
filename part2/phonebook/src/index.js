@@ -1,21 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
-import PersonForm from './components/PersonForm';
-import Filter from './components/Filter';
+import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
+import PersonForm from "./components/PersonForm";
+import Filter from "./components/Filter";
 import Persons from './components/Persons';
 import axios from 'axios';
 
 const App = () => {
-  useEffect(() => {
-    axios.get('http://localhost:3001/persons').then((res) => {
-      setPersons(res.data);
-    });
-  }, []);
 
-  const [persons, setPersons] = useState([]);
-  const [newName, setNewName] = useState('');
-  const [newNumber, setNumber] = useState('');
-  const [newFilter, setFilter] = useState('');
+  useEffect(() => {
+    axios.get('http://localhost:3001/persons').then(res => {
+      setPersons(res.data);
+    })
+    
+  }, [])
+
+  const [persons, setPersons] = useState([])
+  const [newName, setNewName] = useState("");
+  const [newNumber, setNumber] = useState("");
+  const [newFilter, setFilter] = useState("");
 
   return (
     <div>

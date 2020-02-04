@@ -1,7 +1,7 @@
 import React from "react";
 
 const Persons = ({ persons, newFilter }) => {
-  console.log(newFilter);
+
 
   if (newFilter.length) {
     const filteredUsers = persons.map(person => {
