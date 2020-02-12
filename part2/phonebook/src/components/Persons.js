@@ -1,28 +1,37 @@
-import React from "react";
+import React from 'react';
+import PersonService from './services/PersonService';
 
-const Persons = ({ persons, newFilter }) => {
+const Persons = ({ persons, filter, setPersons }) => {
+  const filteredPersons = persons.filter((p) =>
+    p.name.includes(filter) ? p : ''
+  );
 
+  const handleDelete = (data) => {
+    window.confirm(`Rly delete, ${data.name}?`)
+      ? PersonService.deletePerson(data.id).then(
+          setPersons(persons.filter((p) => p.id !== data.id))
+        )
+      : console.log('lulz');
+  };
 
-  if (newFilter.length) {
-    const filteredUsers = persons.map(person => {
-      if (person.name.toLowerCase() === newFilter.toLowerCase()) {
-        return (
-          <li key={person.name}>
-            Name: {person.name} - {person.number}
-          </li>
-        );
-      }
-    });
-      return <ul>{filteredUsers}</ul>;
-      
-  } else {
-    const allPersons = persons.map(person => (
-      <li key={person.name}>
-        Name: {person.name} - {person.number}
+  const personData = (data) => {
+    return (
+      <li key={data.id}>
+        Name: {data.name} - {data.number}
+        <button onClick={() => handleDelete(data)}>Delete</button>
       </li>
-    ));
-    return <ul>{allPersons}</ul>;
-  }
+    );
+  };
+
+  const displayFilteredPersons = filteredPersons.map((p) => personData(p));
+
+  const allPersons = persons.map((p) => personData(p));
+
+  return (
+    <div>
+      <ul>{filter.length ? displayFilteredPersons : allPersons}</ul>
+    </div>
+  );
 };
 
 export default Persons;

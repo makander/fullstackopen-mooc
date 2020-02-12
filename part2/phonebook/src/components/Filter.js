@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
 const Filter = ({ persons, filter, setFilter }) => {
-  const handleFilter = e => {
+  const handleFilter = (e) => {
     e.preventDefault();
     setFilter(e.target.value);
   };

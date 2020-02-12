@@ -2,13 +2,8 @@
   "persons": [
     {
       "name": "Arto Hellas",
-      "number": "040-123456",
+      "number": "2299292",
       "id": 1
-    },
-    {
-      "name": "Ada Lovelace",
-      "number": "39-44-5323523",
-      "id": 2
     },
     {
       "name": "Dan Abramov",
@@ -16,9 +11,14 @@
       "id": 3
     },
     {
-      "name": "Mary Poppendieck",
-      "number": "39-23-6423122",
+      "name": "Sven",
+      "number": "2020",
       "id": 4
+    },
+    {
+      "name": "Göran",
+      "number": "9393",
+      "id": 5
     }
   ]
 }

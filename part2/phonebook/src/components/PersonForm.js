@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+import PersonService from './services/PersonService';
 
 const PersonForm = ({
   persons,
@@ -6,35 +7,47 @@ const PersonForm = ({
   newName,
   setNumber,
   newNumber,
-  setPersons
+  setPersons,
 }) => {
-  const newPerson = e => {
+  const newPerson = (e) => {
+    debugger;
     e.preventDefault();
 
-    persons.forEach(person => {
-      if (person.name.toLowerCase() !== newName.toLowerCase()) {
-        console.log(person.name, "person name");
-        console.log(newName, "new name");
-        setPersons(persons.concat({ name: newName, number: newNumber }));
-        setNumber("");
-        setNewName("");
-      } else {
-        alert(`${newName}, already exists`);
-        setNumber("");
-        setNewName("");
-        console.log("är i elsen");
-        return;
+    const person = {
+      name: newName,
+      number: newNumber,
+    };
+
+    const checkDuplicates = persons.filter((p) => p.name === person.name);
+
+    if (checkDuplicates.length === 0 || checkDuplicates === undefined) {
+      PersonService.createPerson(person)
+        .then(setPersons(persons.concat(person)))
+        .then(setNewName(''), setNumber(''));
+    } else {
+      const duplicateDialog = window.confirm(
+        `${person.name} already exists, add new number?`
+      );
+
+      if (duplicateDialog) {
+        PersonService.updatePerson(checkDuplicates[0].id, person)
+          .then((response) => {
+            setPersons(
+              persons.map((p) =>
+                p.id !== checkDuplicates[0].id ? p : response
+              )
+            );
+          })
+          .then(setNewName(''), setNumber(''));
       }
-    });
+    }
   };
 
-  const handleChangePerson = e => {
-    const name = e.target.value;
-    console.log(name);
+  const handleChangePerson = (e) => {
     setNewName(e.target.value);
   };
 
-  const handleNumber = e => {
+  const handleNumber = (e) => {
     e.preventDefault();
     setNumber(e.target.value.trim());
   };
@@ -42,16 +55,16 @@ const PersonForm = ({
   return (
     <form onSubmit={newPerson}>
       <div>
-        name: <input onChange={handleChangePerson} value={newName} />
+        name: <input onChange={(e) => handleChangePerson(e)} value={newName} />
       </div>
 
       <div>
-        {" "}
-        number: <input onChange={handleNumber} value={newNumber} />
+        number: <input onChange={(e) => handleNumber(e)} value={newNumber} />
       </div>
       <button type="submit">add</button>
       <div>debug: {newName}</div>
     </form>
   );
 };
+
 export default PersonForm;
