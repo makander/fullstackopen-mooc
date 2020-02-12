@@ -17,8 +17,13 @@
     },
     {
       "name": "Göran",
-      "number": "9393",
+      "number": "0000",
       "id": 5
+    },
+    {
+      "name": "kalle",
+      "number": "02020",
+      "id": 6
     }
   ]
 }
