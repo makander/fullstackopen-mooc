@@ -1,7 +1,7 @@
 import React from 'react';
 import PersonService from './services/PersonService';
 
-const Persons = ({ persons, filter, setPersons }) => {
+const DisplayPersons = ({ persons, filter, setPersons }) => {
   const filteredPersons = persons.filter((p) =>
     p.name.includes(filter) ? p : ''
   );
@@ -34,4 +34,4 @@ const Persons = ({ persons, filter, setPersons }) => {
   );
 };
 
-export default Persons;
+export default DisplayPersons;

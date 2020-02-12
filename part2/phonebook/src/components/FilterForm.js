@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Filter = ({ persons, filter, setFilter }) => {
+const FilterForm = ({ persons, filter, setFilter }) => {
   const handleFilter = (e) => {
     e.preventDefault();
     setFilter(e.target.value);
@@ -13,4 +13,4 @@ const Filter = ({ persons, filter, setFilter }) => {
   );
 };
 
-export default Filter;
+export default FilterForm;
