@@ -8,6 +8,8 @@ const PersonForm = ({
   setNumber,
   newNumber,
   setPersons,
+  setMessage,
+  setStatus,
 }) => {
   const newPerson = (e) => {
     debugger;
@@ -22,7 +24,10 @@ const PersonForm = ({
 
     if (checkDuplicates.length === 0 || checkDuplicates === undefined) {
       PersonService.createPerson(person)
+        .then(PersonService.getPersons())
         .then(setPersons(persons.concat(person)))
+        .then(setMessage(`${person.name} was added`), setStatus('success'))
+
         .then(setNewName(''), setNumber(''));
     } else {
       const duplicateDialog = window.confirm(

@@ -1,29 +1,14 @@
 {
   "persons": [
     {
-      "name": "Arto Hellas",
-      "number": "2299292",
-      "id": 1
-    },
-    {
-      "name": "Dan Abramov",
-      "number": "12-43-234345",
-      "id": 3
-    },
-    {
-      "name": "Sven",
-      "number": "2020",
-      "id": 4
-    },
-    {
-      "name": "Göran",
-      "number": "0000",
-      "id": 5
-    },
-    {
-      "name": "kalle",
-      "number": "02020",
+      "name": "lella",
+      "number": "",
       "id": 6
+    },
+    {
+      "name": "Sverker",
+      "number": "",
+      "id": 7
     }
   ]
 }
